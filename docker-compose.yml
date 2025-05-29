@@ -1,0 +1,15 @@
+services:
+  # PostgreSQL for Customer Service
+  customer-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: billflow
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: billflow_customer_development
+    volumes:
+      - customer-db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  customer-db-data:
