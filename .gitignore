@@ -1,0 +1,21 @@
+# Rails artifacts
+*.log
+/tmp
+/db/*.sqlite3
+/vendor/bundle
+
+# Node artifacts
+node_modules/
+dist/
+
+# Go artifacts
+*.exe
+*.test
+
+# Docker
+docker-compose.override.yml
+
+# Editor
+*.swp
+.vscode/
+.idea/
