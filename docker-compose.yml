@@ -11,5 +11,15 @@ services:
     ports:
       - "5432:5432"
 
+  customer-service:
+    build:
+      context: ./services/customer-service
+    env_file:
+      - ./services/customer-service/.env
+    ports:
+      - "3001:3000"
+    depends_on:
+      - customer-db
+
 volumes:
   customer-db-data:

@@ -1,0 +1,40 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("DB_NAME", "billflow_customer_development") %>
+  host:     <%= ENV.fetch("DB_HOST",     "customer-db") %>
+  username: <%= ENV.fetch("DB_USERNAME", "billflow") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "password") %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("DB_NAME", "customer_service_test") %>
+  host:     <%= ENV.fetch("DB_HOST",     "customer-db") %>
+  username: <%= ENV.fetch("DB_USERNAME", "billflow") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "password") %>
+
+production:
+  primary: &primary_production
+    <<: *default
+    database: customer_service_production
+    username: customer_service
+    password: <%= ENV["CUSTOMER_SERVICE_DATABASE_PASSWORD"] %>
+
+  cache:
+    <<: *primary_production
+    database: customer_service_production_cache
+    migrations_paths: db/cache_migrate
+
+  queue:
+    <<: *primary_production
+    database: customer_service_production_queue
+    migrations_paths: db/queue_migrate
+
+  cable:
+    <<: *primary_production
+    database: customer_service_production_cable
+    migrations_paths: db/cable_migrate
