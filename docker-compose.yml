@@ -21,5 +21,25 @@ services:
     depends_on:
       - customer-db
 
+  subscription-db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER:     billflow
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB:       billflow_subscription_development
+    volumes:
+      - subscription-db-data:/var/lib/postgresql/data
+
+  subscription-service:
+    build:
+      context: ./services/subscription-service
+    env_file:
+      - ./services/subscription-service/.env
+    ports:
+      - "3002:3000"
+    depends_on:
+      - subscription-db
+
 volumes:
   customer-db-data:
+  subscription-db-data:

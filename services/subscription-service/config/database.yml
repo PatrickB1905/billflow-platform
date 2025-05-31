@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("DB_NAME",    "billflow_subscription_development") %>
+  host:     <%= ENV.fetch("DB_HOST",    "subscription-db") %>
+  username: <%= ENV.fetch("DB_USERNAME","billflow") %>
+  password: <%= ENV.fetch("DB_PASSWORD","password") %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("TEST_DB_NAME","billflow_subscription_test") %>
+  host:     <%= ENV.fetch("DB_HOST",    "subscription-db") %>
+  username: <%= ENV.fetch("DB_USERNAME","billflow") %>
+  password: <%= ENV.fetch("DB_PASSWORD","password") %>
+
+production:
+  <<: *default
+  database: billflow_subscription_production
+  username: billflow
+  password: <%= ENV["SUBSCRIPTION_SERVICE_DATABASE_PASSWORD"] %>
+ 
