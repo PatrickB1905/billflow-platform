@@ -7,3 +7,8 @@ db/schema.rb linguist-generated
 vendor/* linguist-vendored
 config/credentials/*.yml.enc diff=rails_credentials
 config/credentials.yml.enc diff=rails_credentials
+
+# enforce LF for shell scripts & Dockerfiles
+*.sh          text eol=lf
+Dockerfile    text eol=lf
+entrypoints/* text eol=lf

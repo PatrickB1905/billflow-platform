@@ -55,10 +55,10 @@ FROM base
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
-# Create rails user and ensure swagger output directory is writable
+# Create rails user and ensure required dirs exist + are writable
 RUN groupadd --system --gid 1000 rails \
  && useradd --system --uid 1000 --gid 1000 --create-home --shell /bin/bash rails \
- && mkdir -p /rails/swagger/v1 \
+ && mkdir -p /rails/db /rails/log /rails/tmp /rails/swagger/v1 \
  && chown -R rails:rails /rails/db /rails/log /rails/tmp /rails/swagger
 
 # Switch to non-root
